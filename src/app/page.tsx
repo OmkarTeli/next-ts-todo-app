@@ -6,6 +6,7 @@ export default function Home() {
       <main>
          <h1>New header added</h1>
          <h2>TODO NEXT + TYPESCRIPT APP</h2>
+         <h3>Feature b added</h3>
          <AddTodo />
       </main>
    );
