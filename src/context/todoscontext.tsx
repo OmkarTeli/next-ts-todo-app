@@ -11,6 +11,8 @@ export type Todo = {
 export type TodosContext = {
    todos: Todo[];
    handleAddTodo: (task: string) => void; //call signature
+   handleCheckboxChange: (id: string) => void;
+   handleDeleteTodo: (id: string) => void;
 };
 
 export const todosContext = createContext<TodosContext | null>(null);
@@ -18,6 +20,7 @@ export const todosContext = createContext<TodosContext | null>(null);
 export const TodosProvider = ({ children }: { children: ReactNode }) => {
    const [todos, setTodos] = useState<Todo[]>([]);
 
+   //handle add todo
    const handleAddTodo = (task: string) => {
       setTodos((prev) => {
          const newTodos: Todo[] = [
@@ -32,8 +35,38 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
          return newTodos;
       });
    };
+
+   //handle checkbox
+   const handleCheckboxChange = (id: string) => {
+      setTodos((prev) => {
+         const newTodos = prev.map((task) => {
+            if (task.id === id) {
+               return { ...task, completed: !task.completed };
+            }
+            return task;
+         });
+         return newTodos;
+      });
+   };
+
+   //handle delete todo
+
+   const handleDeleteTodo = (id: string) => {
+      setTodos((prev) => {
+         const newTodos = prev.filter((todo) => todo.id != id);
+         return newTodos;
+      });
+   };
+
    return (
-      <todosContext.Provider value={{ todos, handleAddTodo }}>
+      <todosContext.Provider
+         value={{
+            todos,
+            handleAddTodo,
+            handleCheckboxChange,
+            handleDeleteTodo,
+         }}
+      >
          {children}
       </todosContext.Provider>
    );
