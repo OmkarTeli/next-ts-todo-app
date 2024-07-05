@@ -6,7 +6,6 @@ export default function Home() {
    return (
       <main>
          <h2>TODO NEXT + TYPESCRIPT APP</h2>
-         <h3>Feature b added</h3>
          <AddTodo />
          <Todos />
       </main>
